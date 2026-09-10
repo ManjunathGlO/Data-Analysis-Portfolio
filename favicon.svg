@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="4 4 56 56">
+  <defs>
+    <linearGradient id="bg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111a31"/>
+      <stop offset="1" stop-color="#080b13"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="16" y1="48" x2="49" y2="15" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7181ff"/>
+      <stop offset="1" stop-color="#70a7ff"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="56" height="56" rx="15" fill="url(#bg)" stroke="#26324b" stroke-width="2"/>
+
+  <!-- analytics bars -->
+  <rect x="12" y="34" width="8" height="17" rx="2" fill="url(#accent)"/>
+  <rect x="23" y="26" width="8" height="25" rx="2" fill="url(#accent)"/>
+  <rect x="34" y="18" width="8" height="33" rx="2" fill="url(#accent)"/>
+
+  <!-- upward trend -->
+  <path d="M11 26 L23 21 L34 24 L51 11" fill="none" stroke="#eef2ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M46 11 H51 V16" fill="none" stroke="#eef2ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- data point -->
+  <circle cx="51" cy="11" r="3.2" fill="#53d39b" stroke="#080b13" stroke-width="1.5"/>
+</svg>
