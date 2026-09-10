@@ -187,7 +187,7 @@ const certifications = [
     issuer: "ITVedant",
     date: "2026",
     id: "Credential ID: EE88...B329",
-    image: "public/assets/certifications/certificate-4.png",
+    image: "/assets/certifications/certificate-4.png",
     credential:
       "https://courses.itvedant.skillsnetwork.site/certificates/ee8838843d14498bb4458de700fbb329",
   },
