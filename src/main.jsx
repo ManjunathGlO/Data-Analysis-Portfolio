@@ -178,7 +178,7 @@ const certifications = [
     issuer: "ITVedant",
     date: "2026",
     id: "Credential ID: EE88...B329",
-    image: "public/assets/certifications/certificate-3.jpeg",
+    image: "/assets/certifications/certificate-3.jpeg",
     credential:
       "https://courses.itvedant.skillsnetwork.site/certificates/ee8838843d14498bb4458de700fbb329",
   },
@@ -187,7 +187,7 @@ const certifications = [
     issuer: "ITVedant",
     date: "2026",
     id: "Credential ID: EE88...B329",
-    image: "public/assets/certifications/certificate-4.jpeg",
+    image: "/assets/certifications/certificate-4.jpeg",
     credential:
       "https://courses.itvedant.skillsnetwork.site/certificates/ee8838843d14498bb4458de700fbb329",
   },
