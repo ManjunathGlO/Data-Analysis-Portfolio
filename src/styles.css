@@ -1064,7 +1064,13 @@ footer {
   }
 }
 @media (max-width: 760px) {
+  /* Mobile portrait: sidebar scrolls with the page instead of staying fixed */
   .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: auto;
+    min-height: 100vh;
     transform: translateX(-105%);
     transition: 0.3s;
     width: 280px;
@@ -2620,21 +2626,13 @@ footer {
 }
 
 @media (max-width: 760px) {
-  /* Mobile: padding 20px + half of 37px icon = 38.5px */
   .resume-timeline-card {
-    --resume-line-x: 38.5px;
+    --resume-line-x: 44.5px;
   }
 
   .resume-timeline-card::after {
     top: 41px;
     bottom: 41px;
     width: 2px;
-  }
-}
-
-@media (max-width: 520px) {
-  /* <=520px: padding becomes 18px, so icon center = 36.5px */
-  .resume-timeline-card {
-    --resume-line-x: 36.5px;
   }
 }
