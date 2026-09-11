@@ -2310,12 +2310,42 @@ footer {
     font-size: 13px;
   }
 
+  /* Keep both analytics panels visible on mobile.
+     Two compact columns preserve the desktop dashboard structure
+     and prevent the category/donut panel from being hidden. */
   .analytics-charts {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.9fr);
+    gap: 6px;
   }
 
   .analytics-category {
-    display: none;
+    display: block;
+    min-width: 0;
+  }
+
+  .analytics-panel {
+    min-width: 0;
+  }
+
+  .analytics-panel__head {
+    gap: 4px;
+  }
+
+  .analytics-panel__head span {
+    font-size: 9px;
+  }
+
+  .analytics-panel__head small {
+    font-size: 7px;
+  }
+
+  .analytics-donut {
+    width: 60px;
+    height: 60px;
+  }
+
+  .analytics-legend span {
+    font-size: 6.5px;
   }
 
   .analytics-footer {
@@ -2559,9 +2589,11 @@ footer {
 }
 
 /* =========================================================
-   RESUME TIMELINE — CLEAN THIN VERTICAL LINE
-   No dots / no markers.
-   The rail is aligned to the exact center of the icon column.
+   RESUME TIMELINE — EXACT CENTERED MILESTONE DOTS
+   NTTF + ExcelR only.
+   The 1px rail is centered from the card edge, and each dot's
+   CENTER is positioned on that exact same x-coordinate.
+   The dot background masks the rail underneath it.
 ========================================================= */
 
 .resume-timeline-card {
@@ -2569,23 +2601,22 @@ footer {
   --resume-line-x: 44.5px;
 }
 
-/* One continuous, 2px vertical rail */
+/* One thin rail */
 .resume-timeline-card::after {
   content: "";
   position: absolute;
   left: var(--resume-line-x);
   top: 43px;
   bottom: 43px;
-  width: 2px;
+  width: 1px;
   transform: translateX(-50%);
-  border-radius: 999px;
   background: var(--accent);
   opacity: 0.95;
   z-index: 0;
   pointer-events: none;
 }
 
-/* Keep every icon above the rail */
+/* Keep timeline content above the rail */
 .resume-timeline-card .timeline-item {
   position: relative;
   z-index: 1;
@@ -2597,30 +2628,59 @@ footer {
   background: var(--panel);
 }
 
-/* No timeline dots or pseudo-elements */
+/* Remove any old/generated dot rules */
 .resume-timeline-card .timeline-item::before,
 .resume-timeline-card .timeline-item::after,
 .resume-timeline-card .timeline-icon::before,
-.resume-timeline-card .timeline-icon::after,
-.resume-timeline-card .timeline-dot,
-.resume-timeline-card .education-dot,
-.resume-timeline-card .excelr-dot {
+.resume-timeline-card .timeline-icon::after {
   display: none !important;
   content: none !important;
 }
 
-/* Preserve the exact horizontal relationship:
-   card left padding = 26px
-   timeline column = 42px
-   icon width = 37px
-   icon center = 26 + 18.5 = 44.5px */
-.resume-timeline-card .timeline-item {
-  grid-template-columns: 42px minmax(0, 1fr);
-  gap: 14px;
+/* ---------------------------------------------------------
+   NTTF + ExcelR dots
+   Their CENTER is exactly on --resume-line-x.
+   Desktop content starts at 26 + 42 + 14 = 82px.
+   82 - 44.5 = 37.5px, therefore left = -37.5px.
+   --------------------------------------------------------- */
+
+.resume-timeline-card .resume-sub-item,
+.resume-timeline-card .resume-experience + .resume-experience {
+  position: relative;
+}
+
+.resume-timeline-card .resume-sub-item::before,
+.resume-timeline-card .resume-experience + .resume-experience::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * (var(--resume-line-x) - 0px));
+  top: 9px;
+  width: 10px;
+  height: 10px;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  background: var(--panel);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Exact horizontal correction:
+   The pseudo-element is positioned from the content column.
+   These offsets place its CENTER on the rail. */
+@media (min-width: 761px) {
+  /* Desktop content column begins 82px from the card edge.
+     Rail center = 44.5px, so dot center is 37.5px left of content. */
+  .resume-timeline-card .resume-sub-item::before,
+  .resume-timeline-card .resume-experience + .resume-experience::before {
+    left: -37.5px;
+  }
 }
 
 @media (max-width: 760px) {
-  /* Mobile: padding 20px + half of 37px icon = 38.5px */
+  /* Mobile content column begins 69px from the card edge.
+     Rail center = 38.5px, so dot center is 30.5px left of content. */
   .resume-timeline-card {
     --resume-line-x: 38.5px;
   }
@@ -2628,13 +2688,49 @@ footer {
   .resume-timeline-card::after {
     top: 41px;
     bottom: 41px;
-    width: 2px;
+    width: 1px;
+  }
+
+  .resume-timeline-card .resume-sub-item::before,
+  .resume-timeline-card .resume-experience + .resume-experience::before {
+    left: -32.5px;
   }
 }
 
 @media (max-width: 520px) {
-  /* <=520px: padding becomes 18px, so icon center = 36.5px */
+  /* <=520px content column begins 67px from the card edge.
+     Rail center = 36.5px, so dot center is 30.5px left of content. */
   .resume-timeline-card {
     --resume-line-x: 36.5px;
+  }
+
+  .resume-timeline-card .resume-sub-item::before,
+  .resume-timeline-card .resume-experience + .resume-experience::before {
+    left: -32.5px;
+  }
+}
+
+/* Keep only the requested NTTF and ExcelR circles. */
+.resume-timeline-card .timeline-dot,
+.resume-timeline-card .education-dot,
+.resume-timeline-card .excelr-dot {
+  display: none !important;
+}
+
+
+/* FINAL MOBILE ALIGNMENT OVERRIDE
+   The screenshot showed the dots 2px right of the rail.
+   Shift only the circles left by 2px; Y position stays unchanged. */
+@media (max-width: 760px) {
+  .resume-timeline-card .resume-sub-item::before,
+  .resume-timeline-card .resume-experience + .resume-experience::before {
+    left: -32.5px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .resume-timeline-card .resume-sub-item::before,
+  .resume-timeline-card .resume-experience + .resume-experience::before {
+    left: -32.5px !important;
   }
 }
