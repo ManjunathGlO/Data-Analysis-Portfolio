@@ -2620,13 +2620,21 @@ footer {
 }
 
 @media (max-width: 760px) {
+  /* Mobile: padding 20px + half of 37px icon = 38.5px */
   .resume-timeline-card {
-    --resume-line-x: 44.5px;
+    --resume-line-x: 38.5px;
   }
 
   .resume-timeline-card::after {
     top: 41px;
     bottom: 41px;
     width: 2px;
+  }
+}
+
+@media (max-width: 520px) {
+  /* <=520px: padding becomes 18px, so icon center = 36.5px */
+  .resume-timeline-card {
+    --resume-line-x: 36.5px;
   }
 }
